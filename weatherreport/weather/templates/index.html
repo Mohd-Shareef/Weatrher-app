@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <title> Weather</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <style>
+            body{
+                background-color:#454545;
+            }
+            h2{
+                color:white;
+            }
+            h3{
+                color:white;
+            }
+            h5{
+                color:white;
+            }
+        </style>
+    </head>
+    <body>
+   <h2><center>Weather Report</h2>
+    <center class="row">
+        {%if messages %}
+        {% for message in messages%}
+        <div class="alert alert-{{message.tags}}" role="alert">
+                {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+        <form method="post" class="col-md-6 col-md-offset-3">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" class="form-control" name="city" placeholder="Enter the City name">
+            <div class="input-group-btn">
+                <button class="btn btn-default-md" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </form>
+    </center>
+    <div class="row">
+        {% if data.country_code %}
+        <div class="col-md-6 col-md-offset-3">
+            <h3>{{city}}</h3>
+            <h3>temp: {{data.temp}}</h3>
+            <h5>country code : {{data.country_code}}</h5>
+            <h5>coordinate : {{data.coordinate}}</h5>
+            <h5>pressure : {{data.pressure}}</h5>
+            <h5>humidity: {{data.humidity}}</h5>
+            <h5>forecast: {{data.main}}<img src="http://openweathermap.org/img/w/{{data.icon}}.png" alt="Image" style="width:50px"></h5>
+            <h5>description: {{data.description}}</h5>
+        </div>
+        {% endif %}
+    </body>
+    </html>
